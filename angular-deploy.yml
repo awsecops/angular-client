@@ -1,26 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: angular-app
   labels:
-    app: angular-app
+    app.kubernetes.io/name: angular-client
+    app.kubernetes.io/instance: angular-client
+    app.kubernetes.io/version: '1.0.0'
+    app.kubernetes.io/managed-by: kubectl
+  name: angular-client
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: angular-app
+      app: angular-client
   template:
     metadata:
       labels:
-        app: angular-app
+        app: angular-client
     spec:
       containers:
-      - name: angular-app
-        image: nagasatishdocker/angular-crud-app:latest
-        ports:
-        - containerPort: 80
-        resources:
-            limits:
-              cpu: 500m
-            requests:
-               cpu: 100m
+        - image: 188691447767.dkr.ecr.ap-south-1.amazonaws.com/angular-java:latest
+          imagePullPolicy: Always
+          name: angular-client
+          ports:
+            - containerPort: 80
